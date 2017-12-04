@@ -1,0 +1,17 @@
+{
+  "name": "string-spirits",
+  "version": "0.1.1",
+  "description": "Get the spirit of strings without needing the whole string!",
+  "main": "spirits.js",
+  "keywords": [
+    "wildcard",
+    "wildcards",
+    "fuzzy",
+    "fuzzy-matching"
+  ],
+  "author": "Kayla Washburn",
+  "license": "MIT",
+  "dependencies": {
+    "gardens": "^2.0.0"
+  }
+}
