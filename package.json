@@ -1,6 +1,6 @@
 {
   "name": "string-spirits",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Get the spirit of a string, without the whole thing! ",
   "main": "spirits.js",
   "repository": {

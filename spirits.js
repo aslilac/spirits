@@ -53,7 +53,7 @@ module.exports = class Spirit {
 
     spirits.forEach( spirit => {
       let s = spirit instanceof Spirit ? spirit : new Spirit( spirit )
-      if ( s.match( string ) && s.spirit > match.length ) match = s
+      if ( s.match( string ) && s.spirit > match.spirit ) match = s
     } )
 
     return match
