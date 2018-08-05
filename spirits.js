@@ -2,11 +2,11 @@
 
 'use strict'
 
-let garden = require( 'gardens' ).auto( __filename )
+const garden = new (require( 'gardens' ).constructor)( 'string-spirits' )
 
 module.exports = class Spirit {
   constructor( string ) {
-    let invalid = /^[A-Za-z0-9\?\*\[\]\.\_\-\:]+$/.exec( string )
+    let invalid = /^[^A-Za-z0-9\?\*\[\]\.\_\-\:]+$/.exec( string )
     if ( typeof string !== 'string' ) throw garden.typeerror( 'Spirits are made out of strings!')
     if ( invalid ) throw garden.error( `Invalid character ${invalid[0]} in Spirit!` )
 
