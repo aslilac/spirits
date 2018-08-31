@@ -1,6 +1,6 @@
 {
   "name": "string-spirits",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Get the spirit of a string, without the whole thing! ",
   "main": "spirits.js",
   "repository": {
@@ -16,6 +16,6 @@
   "author": "Kayla Washburn",
   "license": "MIT",
   "dependencies": {
-    "gardens": "^3.0.0"
+    "gardens": "^3.1.2"
   }
 }

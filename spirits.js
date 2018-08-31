@@ -49,11 +49,14 @@ module.exports = class Spirit {
   static bestMatch( spirits, string ) {
     if ( !Array.isArray( spirits ) ) throw garden.typeerror( 'Spirit.bestMatch expects an array of Spirits!' )
 
-    let match = new Spirit( '' )
+    let match = null
 
-    spirits.forEach( spirit => {
-      let s = spirit instanceof Spirit ? spirit : new Spirit( spirit )
-      if ( s.match( string ) && s.spirit > match.spirit ) match = s
+    spirits.forEach( item => {
+      let spirit = item instanceof Spirit ? item : new Spirit( item )
+      if ( spirit.match( string ) ) {
+        if ( !match ) match = spirit
+        else if ( spirit.spirit > match.spirit ) match = spirit
+      }
     } )
 
     return match
