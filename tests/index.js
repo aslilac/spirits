@@ -2,10 +2,6 @@ import Spirit from 'string-spirits'
 import { createScope } from 'gardens'
 const garden = createScope( 'tests' )
 
-export function somethingElse() {
-
-}
-
 export default function () {
   garden.log( 'Beginning tests' )
 
