@@ -14,7 +14,7 @@
   "author": "McKayla Washburn",
   "license": "MIT",
   "dependencies": {
-    "gardens": "^4.0.0"
+    "gardens": "^4.0.1"
   },
   "devDependencies": {
     "rollup": "^0.66.6"
