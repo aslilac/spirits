@@ -1,5 +1,6 @@
 export default [{
   input: 'src/spirits.js',
+  external: [ 'gardens' ],
   output: {
     format: 'umd',
     file: 'dist/spirits.js',
@@ -11,6 +12,7 @@ export default [{
   }
 }, {
   input: 'tests/index.js',
+  external: [ 'string-spirits', 'gardens' ],
   output: {
     format: 'umd',
     file: 'tests/rollup.js',
@@ -19,6 +21,7 @@ export default [{
     globals: {
       'gardens': 'gardens',
       'string-spirits': 'Spirit'
-    }
+    },
+    exports: 'named'
   }
 }]
