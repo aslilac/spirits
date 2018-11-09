@@ -1,21 +1,22 @@
 {
   "name": "string-spirits",
-  "version": "0.2.3",
+  "version": "1.0.0",
   "description": "Get the spirit of a string, without the whole thing! ",
-  "main": "spirits.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/partheseas/string-spirits.git"
-  },
+  "main": "dist/spirits.js",
+  "repository": "partheseas/string-spirits",
   "keywords": [
     "wildcard",
     "wildcards",
     "fuzzy",
-    "fuzzy-matching"
+    "fuzzy-matching",
+    "glob"
   ],
-  "author": "Kayla Washburn",
+  "author": "McKayla Washburn",
   "license": "MIT",
   "dependencies": {
-    "gardens": "^3.1.2"
+    "gardens": "^4.0.0"
+  },
+  "devDependencies": {
+    "rollup": "^0.66.6"
   }
 }

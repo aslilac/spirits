@@ -1,10 +1,10 @@
-// MIT License / Copyright 2014
+// MIT License / Copyright Kayla Washburn 2014
+"use strict"
 
-'use strict'
+import { createScope } from 'gardens'
+const garden = createScope( 'string-spirits' )
 
-const garden = new (require( 'gardens' ).constructor)( 'string-spirits' )
-
-module.exports = class Spirit {
+export default class Spirit {
   constructor( string ) {
     let invalid = /^[^A-Za-z0-9\?\*\[\]\.\_\-\:]+$/.exec( string )
     if ( typeof string !== 'string' ) throw garden.typeerror( 'Spirits are made out of strings!')
@@ -15,8 +15,8 @@ module.exports = class Spirit {
   		string
   		  .replace( /([\.\[\]])/g, c => `\\${c}` ) // Make sure that special characters are escaped
   		  .replace( /\*/g, () => ( stars++, '.*' ) ) // Turn * wildcards into RegExp wildcards
-        .replace( /\?$/, '.?' ) // If a ? is at the end of a string, the character is optional
         .replace( /\?/g, '.' ) // If it's anywhere else, the character is required.
+        .replace( /\.$/, '.?' ) // If a ? is at the end of a string, the character is optional
   	}$` )
 
   	this._string = string
