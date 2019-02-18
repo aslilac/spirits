@@ -4,6 +4,7 @@
   "description": "Get the spirit of a string, without the whole thing! ",
   "main": "dist/spirits.js",
   "repository": "partheseas/string-spirits",
+  "bugs": "https://github.com/partheseas/string-spirits",
   "keywords": [
     "wildcard",
     "wildcards",
@@ -14,7 +15,7 @@
   "author": "McKayla Washburn",
   "license": "MIT",
   "dependencies": {
-    "gardens": "^4.0.1"
+    "gardens": "^4.0.2"
   },
   "devDependencies": {
     "rollup": "^0.66.6"
