@@ -1,7 +1,7 @@
 {
   "name": "string-spirits",
   "version": "1.0.0",
-  "description": "Get the spirit of a string, without the whole thing! ",
+  "description": "Get the spirit of a string, without the whole thing!",
   "main": "dist/spirits.js",
   "repository": "partheseas/string-spirits",
   "bugs": "https://github.com/partheseas/string-spirits",
