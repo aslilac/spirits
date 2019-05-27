@@ -1,8 +1,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('gardens')) :
   typeof define === 'function' && define.amd ? define(['gardens'], factory) :
-  (global.Spirit = factory(global.gardens));
-}(this, (function (gardens) { 'use strict';
+  (global = global || self, global.Spirit = factory(global.gardens));
+}(this, function (gardens) { 'use strict';
 
   // MIT License / Copyright Kayla Washburn 2014
   const garden = gardens.createScope( 'string-spirits' );
@@ -81,5 +81,5 @@
 
   return Spirit;
 
-})));
+}));
 //# sourceMappingURL=spirits.js.map

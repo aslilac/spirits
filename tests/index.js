@@ -1,8 +1,8 @@
 import Spirit from 'string-spirits'
 import { createScope } from 'gardens'
-const garden = createScope( 'tests' )
 
-export default function () {
+export default function ( options ) {
+  const garden = createScope( 'string-spirits', options )
   garden.log( 'Beginning tests' )
 
   const star = new Spirit( '*' )

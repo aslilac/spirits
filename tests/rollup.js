@@ -1,14 +1,13 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('string-spirits'), require('gardens')) :
   typeof define === 'function' && define.amd ? define(['exports', 'string-spirits', 'gardens'], factory) :
-  (factory((global.tests = {}),global.Spirit,global.gardens));
-}(this, (function (exports,Spirit,gardens) { 'use strict';
+  (global = global || self, factory(global.tests = {}, global.Spirit, global.gardens));
+}(this, function (exports, Spirit, gardens) { 'use strict';
 
   Spirit = Spirit && Spirit.hasOwnProperty('default') ? Spirit['default'] : Spirit;
 
-  const garden = gardens.createScope( 'tests' );
-
-  function index () {
+  function index ( options ) {
+    const garden = gardens.createScope( 'string-spirits', options );
     garden.log( 'Beginning tests' );
 
     const star = new Spirit( '*' );
@@ -69,5 +68,5 @@
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
 //# sourceMappingURL=rollup.js.map

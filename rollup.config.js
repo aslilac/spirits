@@ -1,5 +1,5 @@
 export default [{
-  input: 'src/spirits.js',
+  input: 'lib/spirits.js',
   external: [ 'gardens' ],
   output: {
     format: 'umd',
