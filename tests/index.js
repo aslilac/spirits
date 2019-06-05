@@ -1,4 +1,4 @@
-import Spirit from 'string-spirits'
+import Spirit from '..'
 import { createScope } from 'gardens'
 
 const garden = createScope( 'string-spirits' )

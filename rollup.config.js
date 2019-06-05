@@ -12,7 +12,7 @@ export default [{
   }
 }, {
   input: 'tests/index.js',
-  external: [ 'string-spirits', 'gardens' ],
+  external: [ 'gardens', 'string-spirits' ],
   output: {
     format: 'umd',
     file: 'tests/index.bundle.js',
@@ -20,7 +20,7 @@ export default [{
     sourcemap: true,
     globals: {
       'gardens': 'gardens',
-      'string-spirits': 'Spirit'
+      '..': 'Spirit'
     },
     exports: 'named'
   }

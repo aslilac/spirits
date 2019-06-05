@@ -1,5 +1,6 @@
-# Spirits
-Get the spirit of a string, without the whole thing!
+# string-spirits
+![package version](https://img.shields.io/badge/dynamic/json.svg?color=d7d7d7&label=string-spirits&query=%24.version&url=https%3A%2F%2Funpkg.io%2Fstring-spirits%2Fpackage.json&prefix=v)
+![stability](https://img.shields.io/badge/stability-release-66f29a.svg)
 
 A nice lightweight wildcard implementation. I know there are already a lot of these,
 but I had a use case that required to test a string against many wildcards and
@@ -9,15 +10,12 @@ function below.)
 
 ## Installation
 ```Shell
-npm install string-spirits
+yarn add string-spirits
 ```
-or just download a .zip and throw it into a node_modules folder somewhere.
+You should use Yarn and [pnp](https://yarnpkg.com/en/docs/pnp).
 
 ## Usage
 ```JavaScript
-// CommonJS
-const Spirit = require( 'string-spirits' )
-// ESModules
 import Spirit from 'string-spirits'
 
 let format = new Spirit( 'The weather is * today!' )
@@ -28,23 +26,25 @@ console.log( format.match( greeting )
   : 'I have no idea what the weather is like because I am just a computer!' )
 ```
 
-#### Spirit#match( String )
-Returns a boolean indicating if the string has the right spirit!
+### Instance methods
 
-#### Spirit#allMatches( String[] )
-Returns a filtered array of all the strings that matching
+#### match( string ) &rarr; boolean
+Returns either a match array or null
 
-#### Spirit#toString()
+#### allMatches( string[] ) &rarr; string[]
+Returns a filtered array of all the strings that match the spirit
+
+#### toString() &rarr; string
 Returns the string used to create the spirit.
 
 ### Static methods
 
-#### Spirit.match( Spirit or String, String )
-Useful if you want to safely match, but you may have a string or a spirit. If the first argument
-is a string it will be used to create a spirit.
+#### match( Spirit or string, string ) &rarr;
+Returns either a match array or null. Useful if you may have a string or a spirit.
+If the first argument is a string it will be used to create a spirit.
 
-#### Spirit.bestMatch( Spirit[], String )
-Returns the spirit that best matches the string.
+#### bestMatch( Spirit[], string ) &rarr; Spirit
+Returns the `Spirit` that best matches the string.
 
-#### Spirit.map( Spirit[], String[] )
+#### map( Spirit[], string[] )
 Returns a map that links strings to an array of all the spirits that match with them.

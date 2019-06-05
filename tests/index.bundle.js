@@ -1,6 +1,6 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('string-spirits'), require('gardens')) :
-	typeof define === 'function' && define.amd ? define(['string-spirits', 'gardens'], factory) :
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('..'), require('gardens')) :
+	typeof define === 'function' && define.amd ? define(['..', 'gardens'], factory) :
 	(global = global || self, factory(global.Spirit, global.gardens));
 }(this, function (Spirit, gardens) { 'use strict';
 
