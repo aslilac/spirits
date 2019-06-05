@@ -28,23 +28,23 @@ console.log( format.match( greeting )
 
 ### Instance methods
 
-#### match( string ) &rarr; boolean
-Returns either a match array or null
+#### match( `string` ) &rarr; `string[]` or `null`
+Returns either a match array or null.
 
-#### allMatches( string[] ) &rarr; string[]
-Returns a filtered array of all the strings that match the spirit
+#### allMatches( `string[]` ) &rarr; `string[]`
+Returns a filtered array of all the strings that match the spirit.
 
-#### toString() &rarr; string
+#### toString() &rarr; `string`
 Returns the string used to create the spirit.
 
 ### Static methods
 
-#### match( Spirit or string, string ) &rarr;
+#### match( `Spirit` or `string`, `string` ) &rarr; `string[]` or `null`
 Returns either a match array or null. Useful if you may have a string or a spirit.
 If the first argument is a string it will be used to create a spirit.
 
-#### bestMatch( Spirit[], string ) &rarr; Spirit
+#### bestMatch( `Spirit[]`, `string` ) &rarr; `Spirit`
 Returns the `Spirit` that best matches the string.
 
-#### map( Spirit[], string[] )
+#### map( `Spirit[]`, `string[]` )
 Returns a map that links strings to an array of all the spirits that match with them.
