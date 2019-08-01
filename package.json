@@ -1,11 +1,12 @@
 {
   "name": "string-spirits",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "McKayla Washburn",
   "description": "Get the spirit of a string, without the whole thing!",
   "license": "MIT",
   "files": [
-    "dist/*"
+    "dist/*",
+    "lib/spirits.ts"
   ],
   "main": "dist/spirits.js",
   "repository": "partheseas/string-spirits",
@@ -15,13 +16,8 @@
     "glob",
     "wildcards"
   ],
-  "dependencies": {
-    "gardens": "^4.1.1"
-  },
   "devDependencies": {
-    "rollup": "^1.14.2"
-  },
-  "installConfig": {
-    "pnp": true
+    "ava": "^2.2.0",
+    "typescript": "^3.5.3"
   }
 }
