@@ -8,6 +8,7 @@ npm-debug.log*
 
 # Builds
 dist
+.rpt2_cache
 
 # Dependencies
 node_modules

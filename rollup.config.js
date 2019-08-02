@@ -1,27 +1,16 @@
-export default [{
-  input: 'lib/spirits.js',
-  external: [ 'gardens' ],
+import typescript from 'rollup-plugin-typescript2';
+import minify from 'rollup-plugin-babel-minify';
+
+export default {
+  input: 'lib/spirits.ts',
+  plugins: [
+    typescript(),
+    minify({ comments: false })
+  ],
   output: {
     format: 'umd',
     file: 'dist/spirits.js',
     name: 'Spirit',
-    sourcemap: true,
-    globals: {
-      'gardens': 'gardens'
-    }
+    sourcemap: true
   }
-}, {
-  input: 'tests/index.js',
-  external: [ 'gardens', 'string-spirits' ],
-  output: {
-    format: 'umd',
-    file: 'tests/index.bundle.js',
-    name: 'tests',
-    sourcemap: true,
-    globals: {
-      'gardens': 'gardens',
-      '..': 'Spirit'
-    },
-    exports: 'named'
-  }
-}]
+}

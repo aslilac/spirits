@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "../lib",
+    "outDir": "dist",
+    "target": "esnext"
+  },
+  "typedocOptions": {
+    "mode": "file",
+    "out": "doc",
+    "readme": "none",
+    "theme": "minimal"
+  }
+}
