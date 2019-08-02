@@ -1,3 +1,10 @@
+/**
+ * Spirit wildcards support two special characters:
+ * - `*` matches any number greater than one of any variety of characters
+ * - `.` matches any single character
+ * 
+ * These characters can be escaped by prefixing them with a backslash.
+ */
 export default class Spirit {
   // The string used to create the Spirit.
   private _source: string;

@@ -1,7 +1,7 @@
 # string-spirits
 ![package version](https://img.shields.io/badge/dynamic/json.svg?color=d7d7d7&label=string-spirits&query=%24.version&url=https%3A%2F%2Funpkg.io%2Fstring-spirits%2Fpackage.json&prefix=v)
 ![stability](https://img.shields.io/badge/stability-release-66f29a.svg)
-[![Build Status](https://travis-ci.org/partheseas/string-spirits.svg?branch=master)](https://travis-ci.org/partheseas/string-spirits)
+[![build status](https://travis-ci.org/partheseas/string-spirits.svg?branch=master)](https://travis-ci.org/partheseas/string-spirits)
 
 A nice lightweight wildcard implementation written in TypeScript. I know there are already
 a lot of these, but I had a use case that required to test a string against many wildcards
@@ -22,8 +22,8 @@ Example:
 ```JavaScript
 import Spirit from 'string-spirits';
 
-let format = new Spirit( 'The weather is * today!' );
-let greeting = 'The weather is great today!';
+const format = new Spirit( 'The weather is * today!' );
+const greeting = 'The weather is great today!';
 
 console.log( format.match( greeting )
   ? greeting
