@@ -27,6 +27,7 @@
     "typescript": "^3.5.3"
   },
   "scripts": {
+    "now-build": "typedoc",
     "test": "eslint lib && rollup -c && ava"
   }
 }

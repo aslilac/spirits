@@ -1,0 +1,18 @@
+{
+  "name": "string-spirit-doc",
+  "version": 2,
+  "scope": "partheseas",
+  "alias": [
+    "string-spirits",
+    "spirits.now.mckay.la"
+  ],
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "doc"
+      }
+    }
+  ]
+}
