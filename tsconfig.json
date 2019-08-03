@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "declaration": true,
-    "declarationDir": "../lib",
+    "moduleResolution": "node",
     "outDir": "dist",
     "target": "esnext"
   },
