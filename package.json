@@ -32,6 +32,6 @@
   },
   "scripts": {
     "now-build": "typedoc",
-    "test": "eslint lib && rollup -c && ava"
+    "test": "eslint --ext .js,.ts lib && rollup -c && ava"
   }
 }

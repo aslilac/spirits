@@ -1,132 +1,153 @@
 /**
- * Spirit wildcards support two special characters:
- * - `*` matches any number greater than one of any variety of characters
+ * Spirit patterns support two special characters:
+ * - `*` matches any number (including zero) of any variety of characters
  * - `.` matches any single character
- * 
+ * - `?' matches any single character, and is optional when at the end of a pattern
+ *
  * These characters can be escaped by prefixing them with a backslash.
  */
 export default class Spirit {
   // The string used to create the Spirit.
-  private _source: string;
+  private _pattern: string;
   // Represents how specific the Spirit is.
-  spirit: number;
+  strength: number;
 
   /**
-   * @param source The string to use as the wildcard.
+   * @param pattern The string to use as the pattern.
    */
-  constructor( source: string ) {
-    this._source = source;
-    this.spirit = source.length;
-    for ( let i = 0; i < source.length; i++ ) {
-      if ( source.charAt( i ) === '*' ) this.spirit--;
+  constructor( pattern: string ) {
+    this._pattern = pattern;
+    this.strength = pattern.length;
+
+    // Wildcards aren't very specific at all
+    for ( let i = 0; i < pattern.length; i++ ) {
+      if ( pattern.charAt( i ) === '*' ) this.strength--;
     }
+
+    // Question marks at the end are optional, so they are very specific
+    if ( pattern.endsWith( '?' ) ) this.strength--;
   }
 
   /**
    * Can be used as an alternate way to construct a [[Spirit]].
-   * @param source The string to use as the wildcard.
+   * It can be useful for cases where you might have a string or a Spirit.
+   * @param pattern The string to use as the pattern.
    */
-  static createSpirit( source: Spirit | string ): Spirit {
-    return source instanceof Spirit
-      ? source
-      : new Spirit( source );
+  static createSpirit( pattern: Spirit | string ): Spirit {
+    return pattern instanceof Spirit
+      ? pattern
+      : new Spirit( pattern );
   }
 
   /**
-   * Checks if a string matches against the wildcard.
-   * @param against The string to compare to the wildcard.
+   * Checks if a string matches against the pattern.
+   * @param match The string to compare to the pattern.
    */
-  match( against: string ): boolean {
-    const source = this._source;
-    let sourcePosition = 0;
-    let againstPosition = 0;
+  match( match: string ): boolean {
+    const pattern = this._pattern;
+    let patternPosition = 0;
+    let matchPosition = 0;
     let resumeWildcardAt = null;
     // let resumeWildcardAt = [
-    //   sourcePosition,
-    //   againstPosition
+    //   patternPosition,
+    //   matchPosition
     // ];
+
+    // If no match was passed or the string is empty, return false
+    if ( !match ) return false;
 
     for (
       ; // Needs to be initialized above so that it doesn't exit scope
-      againstPosition < against.length && sourcePosition < source.length;
-      againstPosition++
+      patternPosition < pattern.length && matchPosition < match.length;
+      matchPosition++
     ) {
-      let [ current, next ] = this._source.substr( sourcePosition );
+      const [ current, next ] = this._pattern.substr( patternPosition );
 
       switch ( current ) {
         case '*':
           if ( next == null ) return true;
-          else if ( next === against.charAt( againstPosition + 1 ) || next == null ) {
-            resumeWildcardAt = [ sourcePosition, againstPosition ];
-            sourcePosition++;
+          else if ( next === match.charAt( matchPosition ) ) {
+            resumeWildcardAt = [ patternPosition, matchPosition ];
+            patternPosition += 2;
           }
           break;
+        case '?':
         case '.':
-          sourcePosition++;
+          patternPosition++;
           break;
         case '\\':
-          if ( next === against.charAt( againstPosition ) )
-            sourcePosition += 2;
+          if ( next === match.charAt( matchPosition ) )
+            patternPosition += 2;
           break;
         default:
-          if ( current === against.charAt( againstPosition ) )
-            sourcePosition++;
+          if ( current === match.charAt( matchPosition ) )
+            patternPosition++;
           else if ( resumeWildcardAt )
-            [ sourcePosition, againstPosition ] = resumeWildcardAt; 
+            [ patternPosition, matchPosition ] = resumeWildcardAt;
           else return false;
       }
     }
-    
-    return sourcePosition === source.length && againstPosition === against.length;
+
+    if ( patternPosition === pattern.length - 1 && pattern.charAt( patternPosition ) === '?' ) {
+      patternPosition++;
+    }
+
+    return patternPosition === pattern.length && matchPosition === match.length;
   }
 
   /**
-   * Checks if multiple strings match against the wildcard. Only returns true
+   * Checks if multiple strings match against the pattern. Only returns true
    * if all strings match.
-   * @param against The strings to compare to the wildcard.
+   * @param matches The strings to compare to the pattern.
    */
-  allMatch( ...against: string[] ): boolean {
-    return against.every( each => this.match( each ) ); 
+  allMatch( ...matches: string[] ): boolean {
+    return matches.every( each => this.match( each ) );
   }
 
   /**
-   * Returns an array of all the strings that matched against the wildcard.
-   * @param against The strings to compare to the wildcard.
+   * Returns an array of all the strings that matched against the pattern.
+   * @param match The strings to compare to the pattern.
    */
-  findMatches( ...against: string[] ): string[] {
-    return against.filter( each => this.match( each ) );
+  findMatches( ...matches: string[] ): string[] {
+    return matches.filter( each => this.match( each ) );
   }
 
   /**
-   * Returns the wildcard string that was used to construct the [[Spirit]].
+   * Returns the pattern string that was used to construct the [[Spirit]].
    */
   toString(): string {
-    return this._source;
+    return this._pattern;
   }
 
   /**
-   * Provides a way to check if a string matches a wildcard without constructing a [[Spirit]].
-   * @param source The wildcard to compare the string against.
-   * @param against The string to compare to the wildcard.
+   * Provides a way to check if a string matches a pattern without constructing a [[Spirit]].
+   * @param pattern The pattern to compare the string against.
+   * @param match The string to compare to the pattern.
    */
-  static match( source: Spirit | string, against: string ): boolean {
-    return source instanceof Spirit
-      ? source.match( against )
-      : new Spirit( source ).match( against );
+  static match( pattern: Spirit | string, match: string ): boolean {
+    return pattern instanceof Spirit
+      ? pattern.match( match )
+      : new Spirit( pattern ).match( match );
   }
 
   /**
    * Returns the [[Spirit]] that best matches the target string. In the case of a tie,
    * the spirit that was passed to the function first will be returned.
-   * @param target The string the test against the wildcards.
-   * @param against The wildcards that will be tested against the string.
+   * @param target The string the test against the patterns.
+   * @param match The patterns that will be tested against the string.
    */
-  static bestMatch( target: string, ...against: Array<Spirit | string> ): Spirit | null {
+  static bestMatch( match: string, ...patterns: Array<Spirit | string> ): Spirit | string {
+    // We have these as seperate variables, because we return the pattern
+    // that was given to us, which could be a Spirit or just a string.
     let best = null;
+    let strength = 0;
 
-    for ( let each of against ) {
-      const spirit = Spirit.createSpirit( each );
-      if ( ( !best || spirit.spirit > best.spirit ) && spirit.match( target ) ) best = spirit; 
+    for ( const pattern of patterns ) {
+      const spirit = Spirit.createSpirit( pattern );
+      if ( !best || spirit.strength > strength && spirit.match( match ) ) {
+        best = pattern;
+        strength = spirit.strength;
+      }
     }
 
     return best;
