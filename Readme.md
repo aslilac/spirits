@@ -7,7 +7,7 @@ A nice lightweight wildcard implementation written in TypeScript. I know there a
 a lot of these, but I had a use case that required to test a string against many wildcards
 and determine which matched most specifically. I couldn't find one that did that, so
 I just made my own. (If you would like that same functionality, look at the `bestMatch`
-documentation.
+documentation.)
 
 ## Installation
 ```Shell
