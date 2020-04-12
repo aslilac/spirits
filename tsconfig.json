@@ -1,15 +1,15 @@
 {
-  "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "declaration": true,
-    "moduleResolution": "node",
-    "outDir": "dist",
-    "target": "esnext"
-  },
-  "typedocOptions": {
-    "mode": "file",
-    "out": "doc",
-    "readme": "none",
-    "theme": "minimal"
-  }
+	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
+		"declaration": true,
+		"moduleResolution": "node",
+		"outDir": "dist",
+		"target": "esnext"
+	},
+	"typedocOptions": {
+		"mode": "file",
+		"out": "doc",
+		"readme": "none",
+		"theme": "minimal"
+	}
 }
