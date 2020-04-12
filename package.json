@@ -32,6 +32,6 @@
 		"build": "rollup -c",
 		"doc": "typedoc",
 		"fmt": "prettier --ignore-path .gitignore --write .",
-		"test": "yarn build && ava"
+		"test": "ava"
 	}
 }
