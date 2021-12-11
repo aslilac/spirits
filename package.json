@@ -1,6 +1,6 @@
 {
 	"name": "spirits",
-	"version": "2.0.2",
+	"version": "2.0.3",
 	"author": "McKayla Washburn <mckayla@hey.com>",
 	"description": "Get the spirit of a string, without the whole thing!",
 	"keywords": [
@@ -20,7 +20,7 @@
 	"main": "./target/spirits.js",
 	"types": "./target/spirits.d.ts",
 	"files": [
-		"./target/*"
+		"target/**"
 	],
 	"devDependencies": {
 		"@mckayla/prettier": "^1.0.1",
@@ -35,7 +35,7 @@
 		"typescript": "^4.5.3"
 	},
 	"scripts": {
-		"build": "tsc -p .",
+		"build": "tsc -p tsconfig.build.json",
 		"doc": "typedoc",
 		"fmt": "prettier --ignore-path .gitignore --write .",
 		"test": "jest"
