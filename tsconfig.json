@@ -4,9 +4,9 @@
 		"outDir": "./target"
 	},
 	"typedocOptions": {
-		"mode": "file",
-		"out": "doc",
-		"readme": "none",
-		"theme": "minimal"
-	}
+		"entryPoints": "./src/spirits.ts",
+		"out": "./doc",
+		"readme": "./README.md"
+	},
+	"include": ["./src/**/*"]
 }

@@ -1,20 +1,11 @@
-# macOS
 .DS_Store
-
-# Logs
-logs
+.env*
+.vscode/
+build/
+dist/
+doc/
+node_modules/
+target/
 *.log
-npm-debug.log*
-
-# Builds
-.parcel-cache
-.rpt2_cache
-dist
-doc
-
-# Dependencies
-node_modules
-.pnp
-
-# Deployment
-.now
+*.pyc
+*.tsbuildinfo

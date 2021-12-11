@@ -9,7 +9,7 @@
  */
 type Pattern = Spirit | string;
 
-export default class Spirit {
+export class Spirit {
 	/** The string used to create the Spirit. */
 	private readonly pattern: string;
 	/** Represents how specific the pattern is. Similar to length, but not quite the same. */
@@ -192,3 +192,5 @@ export default class Spirit {
 		);
 	}
 }
+
+export default Spirit;
