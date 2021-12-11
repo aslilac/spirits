@@ -59,7 +59,7 @@ export default class Spirit {
 			patternPosition < pattern.length && matchPosition < match.length;
 			matchPosition++
 		) {
-			const [current, next] = this.pattern.substr(patternPosition);
+			const [current, next] = this.pattern.substring(patternPosition);
 
 			switch (current) {
 				case "*":
@@ -74,12 +74,10 @@ export default class Spirit {
 					patternPosition++;
 					break;
 				case "\\":
-					if (next === match.charAt(matchPosition))
-						patternPosition += 2;
+					if (next === match.charAt(matchPosition)) patternPosition += 2;
 					break;
 				default:
-					if (current === match.charAt(matchPosition))
-						patternPosition++;
+					if (current === match.charAt(matchPosition)) patternPosition++;
 					else if (resumeWildcardAt)
 						[patternPosition, matchPosition] = resumeWildcardAt;
 					else return false;
@@ -93,9 +91,7 @@ export default class Spirit {
 			patternPosition++;
 		}
 
-		return (
-			patternPosition === pattern.length && matchPosition === match.length
-		);
+		return patternPosition === pattern.length && matchPosition === match.length;
 	}
 
 	/**
@@ -163,7 +159,7 @@ export default class Spirit {
 	 * @param target The string the test against the patterns.
 	 * @param match The patterns that will be tested against the string.
 	 */
-	static bestMatch(match: string, ...patterns: Array<Pattern>): Pattern {
+	static bestMatch(match: string, ...patterns: Array<Pattern>): Pattern | null {
 		// We have these as seperate variables, because we return the pattern
 		// that was given to us, which could be a Spirit or just a string.
 		let best = null;
@@ -187,10 +183,7 @@ export default class Spirit {
 	 * @param patterns An array of pattern strings or Spirits to check against
 	 * @param matches An array of strings that will be checked against the patterns
 	 */
-	static map(
-		patterns: Array<Pattern>,
-		matches: string[],
-	): Map<Pattern, string[]> {
+	static map(patterns: Array<Pattern>, matches: string[]): Map<Pattern, string[]> {
 		return new Map(
 			patterns.map((pattern) => [
 				pattern,

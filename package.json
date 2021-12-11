@@ -1,37 +1,43 @@
 {
-	"name": "string-spirits",
-	"version": "2.0.1",
-	"author": "McKayla Washburn",
+	"name": "spirits",
+	"version": "2.0.2",
+	"author": "McKayla Washburn <mckayla@hey.com>",
 	"description": "Get the spirit of a string, without the whole thing!",
-	"license": "MIT",
-	"files": [
-		"dist/*"
-	],
-	"main": "dist/spirits.js",
-	"types": "dist/spirits.d.ts",
-	"homepage": "https://string-spirits.now.sh",
-	"repository": "https://github.com/partheseas/string-spirits",
-	"bugs": "https://github.com/partheseas/string-spirits/issues",
 	"keywords": [
-		"fuzzy-matching",
+		"fuzzy matching",
 		"glob",
-		"string-matching",
+		"string",
+		"pattern matching",
+		"string matching",
 		"typescript",
 		"wildcards"
 	],
+	"license": "MIT",
+	"homepage": "https://spirits.vercel.app",
+	"repository": "https://github.com/aslilac/spirits",
+	"bugs": "https://github.com/aslilac/spirits/issues",
+	"type": "commonjs",
+	"main": "./target/spirits.js",
+	"types": "./target/spirits.d.ts",
+	"files": [
+		"./target/*"
+	],
 	"devDependencies": {
-		"@rollup/plugin-typescript": "^3.0.0",
-		"ava": "^2.2.0",
-		"prettier": "^2.0.4",
-		"rollup": "^2.6.0",
-		"rollup-plugin-terser": "^5.3.0",
-		"typedoc": "^0.15.0",
-		"typescript": "^3.8.3"
+		"@mckayla/prettier": "^1.0.1",
+		"@mckayla/tsconfig": "^1.0.1",
+		"@types/jest": "^27.0.3",
+		"eslint": "^8.4.1",
+		"eslint-config-mckayla": "^1.0.4",
+		"jest": "^27.4.4",
+		"prettier": "^2.5.1",
+		"ts-jest": "^27.1.1",
+		"typedoc": "^0.22.10",
+		"typescript": "^4.5.3"
 	},
 	"scripts": {
-		"build": "rollup -c",
+		"build": "tsc -p .",
 		"doc": "typedoc",
 		"fmt": "prettier --ignore-path .gitignore --write .",
-		"test": "ava"
+		"test": "jest"
 	}
 }

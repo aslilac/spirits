@@ -1,10 +1,7 @@
 {
+	"extends": "@mckayla/tsconfig",
 	"compilerOptions": {
-		"allowSyntheticDefaultImports": true,
-		"declaration": true,
-		"moduleResolution": "node",
-		"outDir": "dist",
-		"target": "esnext"
+		"outDir": "./target"
 	},
 	"typedocOptions": {
 		"mode": "file",
