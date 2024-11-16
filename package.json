@@ -2,7 +2,7 @@
 	"name": "spirits",
 	"version": "3.0.0",
 	"author": "McKayla Washburn <mckayla@hey.com>",
-	"description": "Get the spirit of a string, without the whole thing!",
+	"description": "A glob/wildcard matching library",
 	"license": "MPL-2.0",
 	"homepage": "https://mckay.la/spirits",
 	"repository": "https://github.com/aslilac/spirits",
