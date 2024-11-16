@@ -1,12 +1,12 @@
 .DS_Store
 .env*
-.idea/
-.nova/
-.vscode/
 build/
 coverage/
 dist/
 doc/
 node_modules/
+package-lock.json
+LICENCE*
+LICENSE*
 *.log
 *.tsbuildinfo

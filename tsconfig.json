@@ -1,12 +1,36 @@
 {
-	"extends": "@mckayla/tsconfig",
 	"compilerOptions": {
-		"outDir": "./target"
+		"baseUrl": ".",
+		"declaration": true,
+		"exactOptionalPropertyTypes": false,
+		"forceConsistentCasingInFileNames": true,
+		"incremental": true,
+		"isolatedModules": true,
+		"module": "node16",
+		"moduleResolution": "node16",
+		"noEmitOnError": false,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
+		"noImplicitOverride": false,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": false,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"outDir": "build/",
+		"preserveWatchOutput": true,
+		"sourceMap": true,
+		"strict": true,
+		"target": "esnext",
+		"types": [],
+		"useDefineForClassFields": true,
+		"useUnknownInCatchVariables": true,
+		"verbatimModuleSyntax": true
 	},
+	"include": ["./src/**/*"],
 	"typedocOptions": {
-		"entryPoints": "./src/spirits.ts",
-		"out": "./doc",
-		"readme": "./README.md"
-	},
-	"include": ["./src/**/*"]
+		"entryPoints": ["./src/index.ts"],
+		"out": "doc/"
+	}
 }

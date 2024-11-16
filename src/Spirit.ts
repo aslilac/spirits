@@ -1,3 +1,5 @@
+export type Pattern = Spirit | string;
+
 /**
  * Spirit patterns support three special characters:
  * - `*` matches any number (including zero) of any variety of characters
@@ -7,12 +9,14 @@
  * These characters can be escaped by prefixing them with a backslash.
  * All other characters are safe to be included anywhere in the string.
  */
-type Pattern = Spirit | string;
-
 export class Spirit {
 	/** The string used to create the Spirit. */
-	private readonly pattern: string;
-	/** Represents how specific the pattern is. Similar to length, but not quite the same. */
+	readonly pattern: string;
+	/**
+	 * Represents how specific the pattern is. For example, a wildcard (`*`) is
+	 * not very specific, a single-character wildcard (`.`) is a little more
+	 * specific, but neither is as specific as an exact character.
+	 * */
 	readonly strength: number;
 
 	/**
@@ -22,9 +26,13 @@ export class Spirit {
 		this.pattern = pattern;
 		this.strength = pattern.length;
 
-		// Wildcards aren't very specific at all
 		for (let i = 0; i < pattern.length; i++) {
+			// Wildcards aren't very specific at all.
 			if (pattern.charAt(i) === "*") this.strength--;
+			// A single-character wildcard is a little more specific.
+			if (pattern.charAt(i) === ".") this.strength -= 0.5;
+			// An escape backslash doesn't count, but the character after it does.
+			if (pattern.charAt(i) === "\\") i++;
 		}
 
 		// Question marks at the end are optional, so they are very specific
@@ -32,16 +40,16 @@ export class Spirit {
 	}
 
 	/**
-	 * Can be used as an alternate way to construct a [[Spirit]].
+	 * Can be used as an alternate way to construct a {@link Spirit}.
 	 * It can be useful for cases where you might have a string or a Spirit.
 	 * @param pattern The string to use as the pattern.
 	 */
-	static createSpirit(pattern: Pattern): Spirit {
+	static from(pattern: Pattern): Spirit {
 		return pattern instanceof Spirit ? pattern : new Spirit(pattern);
 	}
 
 	/**
-	 * Checks if a string matches against the pattern.
+	 * Checks if a string matches the spirit.
 	 * @param match The string to compare to the pattern.
 	 */
 	match(match: string): boolean {
@@ -63,7 +71,7 @@ export class Spirit {
 
 			switch (current) {
 				case "*":
-					if (next == null) return true;
+					if (next == undefined) return true;
 					else if (next === match.charAt(matchPosition)) {
 						resumeWildcardAt = [patternPosition, matchPosition];
 						patternPosition += 2;
@@ -95,8 +103,7 @@ export class Spirit {
 	}
 
 	/**
-	 * Checks if multiple strings match against the pattern. Only returns true
-	 * if all strings match.
+	 * Checks that all strings match the spirit.
 	 * @param matches The strings to compare to the pattern.
 	 */
 	allMatch(...matches: string[]): boolean {
@@ -104,93 +111,90 @@ export class Spirit {
 	}
 
 	/**
-	 * Allows you to quickly test many strings against the pattern, and
-	 * see which ones match it.
-	 * @param match The strings to compare to the pattern.
-	 * @returns All of the strings that matched against the pattern.
+	 * Allows you to quickly check many strings at once, and returns all of the
+	 * strings that match the spirit.
+	 * @param match The strings to compare to test.
+	 * @returns all of the strings that matched.
 	 */
 	findMatches(...matches: string[]): string[] {
 		return matches.filter((each) => this.match(each));
 	}
 
 	/**
-	 * Returns the pattern string that was used to construct the [[Spirit]].
+	 * @returns the pattern string that was used to construct the {@link Spirit}.
 	 */
 	toString(): string {
 		return this.pattern;
 	}
 
 	/**
-	 * Provides a way to check if a string matches a pattern without
-	 * constructing a [[Spirit]].
+	 * Checks if a string matches the spirit.
 	 * @param pattern The pattern to compare the string against.
 	 * @param match The string to compare to the pattern.
 	 */
 	static match(pattern: Pattern, match: string): boolean {
-		return pattern instanceof Spirit
-			? pattern.match(match)
-			: new Spirit(pattern).match(match);
+		return Spirit.from(pattern).match(match);
 	}
 
 	/**
-	 * Provides a way to check if multiple string match a pattern without
-	 * constructing a [[Spirit]].
+	 * Checks that all strings match the spirit.
 	 * @param pattern The pattern to compare the strings against.
 	 * @param matches The strings to compare to the pattern.
 	 */
 	static allMatch(pattern: Pattern, ...matches: string[]): boolean {
-		return Spirit.createSpirit(pattern).allMatch(...matches);
+		return Spirit.from(pattern).allMatch(...matches);
 	}
 
 	/**
-	 * Provides a way to check which strings match a pattern without
-	 * constructing a [[Spirit]].
+	 * Allows you to quickly check many strings at once.
 	 * @param pattern The pattern to compare the strings against.
 	 * @param matches The strings to compare to the pattern.
+	 * @returns all of the strings that match the spirit.
 	 */
 	static findMatches(pattern: Pattern, ...matches: string[]): string[] {
-		return Spirit.createSpirit(pattern).findMatches(...matches);
+		return Spirit.from(pattern).findMatches(...matches);
 	}
 
 	/**
-	 * Returns the [[Spirit]] or pattern string that best matches the target string.
-	 * In the case of a tie, the spirit that was passed to the function first
-	 * will be returned.
-	 * @param target The string the test against the patterns.
-	 * @param match The patterns that will be tested against the string.
+	 * Finds the spirit that most specifically matches the given string, and
+	 * returns it. In the case of a tie, the spirit that was passed to the
+	 * function first will be returned.
+	 * @param match The string to test against the patterns.
+	 * @param patterns The patterns that will be tested against the string.
+	 * @returns the pattern string that best matches. To make comparisions easier,
+	 * it does _not_ return a {@link Spirit} object.
 	 */
-	static bestMatch(match: string, ...patterns: Array<Pattern>): Pattern | null {
+	static bestMatch(match: string, ...patterns: Pattern[]): string | undefined {
 		// We have these as seperate variables, because we return the pattern
 		// that was given to us, which could be a Spirit or just a string.
-		let best = null;
-		let strength = 0;
+		let best: Spirit | undefined = undefined;
 
 		for (const pattern of patterns) {
-			const spirit = Spirit.createSpirit(pattern);
-			if (!best || (spirit.strength > strength && spirit.match(match))) {
-				best = pattern;
-				strength = spirit.strength;
+			const spirit = Spirit.from(pattern);
+			if (!best || (spirit.strength > best.strength && spirit.match(match))) {
+				best = spirit;
 			}
 		}
 
-		return best;
+		return best?.toString();
 	}
 
 	/**
-	 * Returns a map using the pattern as the key and an array of matches
-	 * as the value. If the pattern given was a string, the key will be a string.
-	 * If the pattern was a spirit, then that same spirit will be the key.
-	 * @param patterns An array of pattern strings or Spirits to check against
-	 * @param matches An array of strings that will be checked against the patterns
+	 * @param patterns Pattern strings or Spirits to check against
+	 * @param matches Strings that will be checked against the patterns
+	 * @returns a map using the pattern string as the key and an array of matches
+	 * as the value. To avoid equality issues when trying to get matches from the
+	 * result, it does _not_ use any {@link Spirit} objects as keys.
 	 */
-	static map(patterns: Array<Pattern>, matches: string[]): Map<Pattern, string[]> {
+	static map(
+		patterns: Pattern[],
+		matches: Iterable<string>,
+	): Map<string, string[]> {
 		return new Map(
 			patterns.map((pattern) => [
-				pattern,
-				Spirit.createSpirit(pattern).findMatches(...matches),
+				pattern.toString(),
+				Spirit.from(pattern).findMatches(...matches),
 			]),
 		);
 	}
 }
-
-export default Spirit;
